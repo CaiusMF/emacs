@@ -1,0 +1,193 @@
+(setq inhibit-startup-message t)
+
+(scroll-bar-mode -1) ; disable visible scrollbar
+(tool-bar-mode -1)   ; disable the toolbar
+(tooltip-mode -1)    ; disable tooltips
+(set-fringe-mode -1) ; disable fringe
+(menu-bar-mode -1)   ; disable the menu bar
+
+(auto-save-visited-mode -1) ; no autosave in file
+(auto-save-mode 1)          ; autosave enabled (in backup file)
+
+(column-number-mode) ; enable column indexing in modeline
+
+(set-face-attribute 'default nil :height 160) ; set text size
+
+(setq org-support-shift-select nil)
+
+;; set backup folder
+(setq backup-directory-alist
+      `(("." . ,(concat user-emacs-directory "backups"))))
+
+;; enable line numbers for some modes
+(dolist (mode '(text-mode-hook
+                prog-mode-hook
+                conf-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 1))))
+
+;; override some modes which derive from the above
+(dolist (mode '(org-mode-hook
+		messages-buffer-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;; BINDINGS
+(global-set-key (kbd "s-r") 'split-window-right)
+(global-set-key (kbd "C-M-j") 'counsel-switch-buffer)
+(global-set-key (kbd "C-M-[") 'previous-buffer)
+(global-set-key (kbd "C-M-]") 'next-buffer)
+(global-set-key (kbd "C-M-\\") 'next-window-any-frame)
+
+;; initialize package sources
+(require 'package)
+
+;; where to search for packages
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Initialize use-package on non-Linux platforms
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+(use-package command-log-mode)
+
+(use-package ivy
+  :diminish
+  :bind (("C-s" . swiper)
+         :map ivy-minibuffer-map
+         ("TAB" . ivy-alt-done)	
+         ("C-l" . ivy-alt-done)
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
+         :map ivy-switch-buffer-map
+         ("C-k" . ivy-previous-line)
+         ("C-l" . ivy-done)
+         ("C-d" . ivy-switch-buffer-kill)
+         :map ivy-reverse-i-search-map
+         ("C-k" . ivy-previous-line)
+         ("C-d" . ivy-reverse-i-search-kill))
+  :config
+  (ivy-mode 1))
+
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+	 ("C-x b" . counsel-ibuffer)
+	 ("C-x C-f" . counsel-find-file)
+	 :map minibuffer-local-map
+	 ("C-r" . counsel-minibuffer-history))
+  :config
+  (setq ivy-initial-inputs-alist nil)) ;; don't start searches with ^
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :custom ((doom-modeline-height 15)))
+
+(use-package doom-themes)
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-idle-delay 0.3))
+
+(use-package ivy-rich
+  :init
+  (ivy-rich-mode 1))
+
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+	 ("C-x b" . counsel-ibuffer)
+	 ("C-x C-f" . counsel-find-file)
+	 :map minibuffer-local-map
+	 ("C-r" . counsel-minibuffer-history)))
+
+(use-package helpful
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+
+;; NOTE: The first time you load your configuration on a new machine, you'll
+;; need to run the following command interactively so that mode line icons
+;; display correctly:
+;;
+;; M-x all-the-icons-install-fonts
+
+(use-package all-the-icons)
+
+(load-theme 'doom-gruvbox t)
+
+(use-package projectile
+  :diminish projectile-mode
+  :config (projectile-mode)
+  :custom ((projectile-completion-system 'ivy))
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :init
+  ;; NOTE: Set this to the folder where you keep your Git repos!
+  (when (file-directory-p "~/Work")
+    (setq projectile-project-search-path '("~/Work")))
+  (setq projectile-switch-project-action #'projectile-dired))
+
+(use-package counsel-projectile
+  :config (counsel-projectile-mode))
+
+(use-package minimap)
+
+(use-package multiple-cursors)
+
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+(use-package org) ; for updating org
+
+;; add OS specific customizations
+;; (cond
+;;  ((string-equal system-type "windows-nt") ; Microsoft Windows
+;;   (progn
+;;     (message "Microsoft Windows")))
+;;  ((string-equal system-type "darwin") ; Mac OS X
+;;   (progn
+;;     (setq mac-command-modifier 'meta)
+;;     (setq mac-option-modifier 'super)
+;;     (message "Mac OS X")))
+;;  ((string-equal system-type "gnu/linux") ; linux
+;;   (progn
+;;     (message "Linux"))))
+
+;; add OS-specific customizations
+(cond
+ ; macos
+ ((string= "darwin" system-type)
+  (progn
+    (setq mac-command-modifier 'meta)
+    (setq mac-option-modifier 'super)
+    (toggle-frame-fullscreen)))
+ ; linux
+ ((string= "gnu/linux" system-type)
+  (progn ()))
+ ; windows
+ ((string= "windows-nt" system-type)
+  (progn ())))
+
+;; (use-package pdf-tools) ; doesn't work (make it work using its github)
+
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
