@@ -32,6 +32,7 @@
 
 ;; BINDINGS
 (global-set-key (kbd "s-r") 'split-window-right)
+(global-set-key (kbd "s-k") 'kill-current-buffer)
 (global-set-key (kbd "C-M-j") 'counsel-switch-buffer)
 (global-set-key (kbd "C-M-[") 'previous-buffer)
 (global-set-key (kbd "C-M-]") 'next-buffer)
@@ -158,20 +159,6 @@
 
 (use-package org) ; for updating org
 
-;; add OS specific customizations
-;; (cond
-;;  ((string-equal system-type "windows-nt") ; Microsoft Windows
-;;   (progn
-;;     (message "Microsoft Windows")))
-;;  ((string-equal system-type "darwin") ; Mac OS X
-;;   (progn
-;;     (setq mac-command-modifier 'meta)
-;;     (setq mac-option-modifier 'super)
-;;     (message "Mac OS X")))
-;;  ((string-equal system-type "gnu/linux") ; linux
-;;   (progn
-;;     (message "Linux"))))
-
 ;; add OS-specific customizations
 (cond
  ; macos
@@ -179,7 +166,11 @@
   (progn
     (setq mac-command-modifier 'meta)
     (setq mac-option-modifier 'super)
-    (toggle-frame-fullscreen)))
+    (toggle-frame-fullscreen)
+    (global-unset-key (kbd "s-c"))
+    (global-unset-key (kbd "s-x"))
+    (global-unset-key (kbd "s-v"))
+    (global-unset-key (kbd "s-z"))))
  ; linux
  ((string= "gnu/linux" system-type)
   (progn ()))

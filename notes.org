@@ -135,7 +135,7 @@ M-x M-x         = eval region (requires counsel)
      
  - [-] check out [[orgmode.org]] (read manual)
 
- - [ ] undo/redo
+ - [X] undo/redo
 
  - [ ] see end of 'Emacs From Scratch #5 - Org Mode Basics' for:
 
