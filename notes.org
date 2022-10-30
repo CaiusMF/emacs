@@ -1,0 +1,148 @@
+* Learning Emacs
+
+** Key meanings
+
+C = Ctrl key
+M = Meta key (Alt, Option keys)
+s = Super key (linux, windows, command keys)
+S = Shift key
+
+** Key bindings
+
+*** Movement 
+
+C-p   = prev line
+C-n   = next line
+C-b   = prev character
+C-f   = next character
+M-f   = forward word
+M-b   = backward word
+M->   = end of buffer
+M-<   = begining of buffer
+C-v   = scroll up
+M-v   = scroll down
+C-M-p = backward out of one level of parantheses
+C-M-n = forward across one group of parantheses
+
+*** Buffers
+
+C-x right = next buffer
+C-x left  = prev buffer
+C-M-[     = prev buffer
+C-M-]     = next buffer
+C-x C-s   = save buffer
+C-x x r	  = rename-buffer
+C-x k	  = kill buffer (specify)
+s-k       = kill current buffer (~MACOS~)
+C-M-j	  = counsel switch buffer (custom map)
+
+*** Text manipulation
+
+s-c = copy (~MACOS~)
+s-x = cut/kill (~MACOS~)
+s-v = paste/yank (~MACOS~)
+s-z = undo (~MACOS~)
+C-k = cut/kill line
+C-w = cut/kill region
+C-y = paste/yank
+C-/ = undo
+C-? = redo
+M-w = copy/save to kill ring
+M-y = cycle kill ring
+
+*** Search
+
+C-s   = forward search
+C-r   = reverse search
+M-s . = search symbol under cursor
+
+*** Help
+
+C-h v = describe variable (prompt list)
+C-h f = describe function (prompt list)
+C-h o = describe symbol (best of both worlds) (prompt list)
+      * if called with cursor on var/func/symbol, will default to it
+C-h b = describe bindings
+C-h k = describe key (prompt)
+
+*** Other
+
+C-x C-e	        = eval last expression
+M-x eval-buffer = eval whole buffer
+M-x M-x         = eval region (requires counsel)
+
+* Cool themes
+
+ + dark:
+   - gruvbox
+   - dracula
+   - material
+   - palenight
+   - peacock
+   - snazzy
+ + light:
+   - acario-light
+   - solarized-light
+   - tsdh-light
+
+* Info
+
+ + doing 'eval-buffer' on config code multiple times can multiply hooks
+
+ + text selection: instead of 'S-C-a' or 'S-C-e' selection, combine 'C-SPC' with
+   'C-a' or 'C-e'
+
+ + M-o in counsel-M-x = manipulate selected function
+
+ + 'list-packages' refreshes the package repos (useful if 'use-package'
+   doesn't find a package)
+
+ + projectile only sees folders as projects if they are repos (git, mercurial, etc)
+   or marked 
+
+ + 'counsel-projectile-rg' = search the current project with rg
+
+   - C-c C-o = puts the search into a new buffer which is persistent and
+       can be browsed (helpful for finding things in a project)
+
+* TODO 
+ - [ ] find select whole line from whatever current position in said line
+   
+ - [ ] how to rename current buffer
+   
+ - [ ] python color inconsistencies (doom-themes?)
+   
+ - [ ] see in future if you need switch-buffer-other-window
+   
+ - [ ] terminal spawn/kill shortcut
+   
+ - [ ] see 'general' package for cleaner key binding definitions
+   - see System Crafters' Emacs From Scratch #3
+   - can add other prefixes like 'C-SPACE'
+     
+ - [ ] check 'auto-fill-mode' for txt files
+   
+ - [ ] need: scroll to not move cursor?
+   
+ - [ ] read on/experiment:
+   - multiple cursors
+     
+ - [ ] investigate new types of newline
+   
+ - [ ] new forms of selection
+   - word
+   - whole function
+     
+ - [-] check out [[orgmode.org]] (read manual)
+
+ - [ ] undo/redo
+
+ - [ ] see end of 'Emacs From Scratch #5 - Org Mode Basics' for:
+
+   + text wrapping
+
+   + visual fill mode (center text on screen)
+
+   + different font sizes for different text types (headers, text, lists, etc)
+
+ - [ ] version control for emacs config (ubuntu, manjaro, macos) (with magit?)
