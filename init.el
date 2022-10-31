@@ -180,5 +180,13 @@
 
 ;; (use-package pdf-tools) ; doesn't work (make it work using its github)
 
+(defun org-mode-visual-fill ()
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(use-package visual-fill-column
+  :hook (org-mode . org-mode-visual-fill))
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)

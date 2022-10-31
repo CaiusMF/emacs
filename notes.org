@@ -33,15 +33,11 @@ C-M-]     = next buffer
 C-x C-s   = save buffer
 C-x x r	  = rename-buffer
 C-x k	  = kill buffer (specify)
-s-k       = kill current buffer (~MACOS~)
+s-k       = kill current buffer
 C-M-j	  = counsel switch buffer (custom map)
 
 *** Text manipulation
 
-s-c = copy (~MACOS~)
-s-x = cut/kill (~MACOS~)
-s-v = paste/yank (~MACOS~)
-s-z = undo (~MACOS~)
 C-k = cut/kill line
 C-w = cut/kill region
 C-y = paste/yank
