@@ -1,4 +1,5 @@
 (setq inhibit-startup-message t)
+(setq ring-bell-function 'ignore)
 
 (scroll-bar-mode -1) ; disable visible scrollbar
 (tool-bar-mode -1)   ; disable the toolbar
@@ -33,6 +34,8 @@
 ;; BINDINGS
 (global-set-key (kbd "s-r") 'split-window-right)
 (global-set-key (kbd "s-k") 'kill-current-buffer)
+(global-set-key (kbd "s-'") 'next-window-any-frame)
+(global-set-key (kbd "C-?") 'undo-redo)
 (global-set-key (kbd "C-M-j") 'counsel-switch-buffer)
 (global-set-key (kbd "C-M-[") 'previous-buffer)
 (global-set-key (kbd "C-M-]") 'next-buffer)
@@ -76,6 +79,9 @@
          ("C-d" . ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
+
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(setq ivy-use-virtual-buffers t) ; don't know how this works
 
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
@@ -190,3 +196,32 @@
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
+
+;; configure eshell
+(defun configure-eshell ()
+  ;; Save command history when commands are entered
+  (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
+
+  ;; Truncate buffer for performance
+  (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
+
+  (setq eshell-history-size         10000
+        eshell-buffer-maximum-lines 10000
+        eshell-hist-ignoredups t
+        eshell-scroll-to-bottom-on-input t))
+
+(use-package eshell
+  :hook (eshell-first-time-mode . configure-eshell))
+
+;; dired
+
+(use-package dired-single)
+
+(define-key dired-mode-map (kbd "<left>") 'dired-single-up-directory)
+(define-key dired-mode-map (kbd "<right>") 'dired-single-buffer)
+;; (use-package dired
+;;   :ensure nil
+;;   :commands (dired dired-jump)
+;;   :bind (("C-x C-j" . dired-jump))
+;;   :config ((define-key dired-mode-map (kbd "<left>") 'dired-single-up-directory)
+;; 	   (define-key dired-mode-map (kbd "<right>") 'dired-single-buffer)))

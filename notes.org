@@ -66,7 +66,20 @@ C-h k = describe key (prompt)
 C-x C-e	        = eval last expression
 M-x eval-buffer = eval whole buffer
 M-x M-x         = eval region (requires counsel)
+s-'             = next window
 
+*** Dired
+
+C-x d   = to enter dired mode
+C-x C-j = jump to dired buffer corresponding to current buff
+C-o     = display file/folder in other window (~no focus~)
+o       = visit file/folder in other window (~focus~)
+h       = for help (describe-mode)
+j       = for jumping to file
+
+dired-jump
+
+  
 * Cool themes
 
  + dark:
@@ -100,6 +113,8 @@ M-x M-x         = eval region (requires counsel)
 
    - C-c C-o = puts the search into a new buffer which is persistent and
        can be browsed (helpful for finding things in a project)
+
+ + counsel-esh-history = search eshell command history
 
 * TODO 
  - [ ] find select whole line from whatever current position in said line
@@ -142,3 +157,11 @@ M-x M-x         = eval region (requires counsel)
    + different font sizes for different text types (headers, text, lists, etc)
 
  - [ ] version control for emacs config (ubuntu, manjaro, macos) (with magit?)
+
+ - [ ] add friends and family birthdays in org mode agenda (on repeat)
+
+ - [ ] find way to jump back to where you previously were in a buffer
+
+ - [ ] search symbol (M-s .) and mark them (multiple lines)
+
+ - [ ] C-SPC select from end-of-line to start-of-first-word not start-of-line
