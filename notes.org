@@ -28,8 +28,9 @@ C-M-n = forward across one group of parantheses
 
 C-x right = next buffer
 C-x left  = prev buffer
-C-M-[     = prev buffer
-C-M-]     = next buffer
+M-,       = prev buffer
+M-.       = next buffer
+M-/       = next window
 C-x C-s   = save buffer
 C-x x r	  = rename-buffer
 C-x k	  = kill buffer (specify)
@@ -38,13 +39,14 @@ C-M-j	  = counsel switch buffer (custom map)
 
 *** Text manipulation
 
-C-k = cut/kill line
-C-w = cut/kill region
-C-y = paste/yank
-C-/ = undo
-C-? = redo
-M-w = copy/save to kill ring
-M-y = cycle kill ring
+C-k           = cut/kill line
+C-S-backspace = kill current line
+C-w           = cut/kill region
+C-y           = paste/yank
+C-/           = undo
+C-?           = redo
+M-w           = copy/save to kill ring
+M-y           = cycle kill ring
 
 *** Search
 
@@ -66,7 +68,6 @@ C-h k = describe key (prompt)
 C-x C-e	        = eval last expression
 M-x eval-buffer = eval whole buffer
 M-x M-x         = eval region (requires counsel)
-s-'             = next window
 
 *** Dired
 
@@ -156,8 +157,6 @@ dired-jump
 
    + different font sizes for different text types (headers, text, lists, etc)
 
- - [ ] version control for emacs config (ubuntu, manjaro, macos) (with magit?)
-
  - [ ] add friends and family birthdays in org mode agenda (on repeat)
 
  - [ ] find way to jump back to where you previously were in a buffer
@@ -165,3 +164,5 @@ dired-jump
  - [ ] search symbol (M-s .) and mark them (multiple lines)
 
  - [ ] C-SPC select from end-of-line to start-of-first-word not start-of-line
+
+ - [ ] multiple cursors - don't ask for action permission for all cursors as default

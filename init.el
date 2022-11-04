@@ -35,11 +35,10 @@
 (global-set-key (kbd "s-r") 'split-window-right)
 (global-set-key (kbd "s-k") 'kill-current-buffer)
 (global-set-key (kbd "s-'") 'next-window-any-frame)
-(global-set-key (kbd "C-?") 'undo-redo)
+(global-set-key (kbd "M-,") 'previous-buffer)
+(global-set-key (kbd "M-.") 'next-buffer)
+(global-set-key (kbd "M-/") 'next-window-any-frame)
 (global-set-key (kbd "C-M-j") 'counsel-switch-buffer)
-(global-set-key (kbd "C-M-[") 'previous-buffer)
-(global-set-key (kbd "C-M-]") 'next-buffer)
-(global-set-key (kbd "C-M-\\") 'next-window-any-frame)
 
 ;; initialize package sources
 (require 'package)
@@ -225,3 +224,4 @@
 ;;   :bind (("C-x C-j" . dired-jump))
 ;;   :config ((define-key dired-mode-map (kbd "<left>") 'dired-single-up-directory)
 ;; 	   (define-key dired-mode-map (kbd "<right>") 'dired-single-buffer)))
+
