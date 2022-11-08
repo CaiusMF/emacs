@@ -117,7 +117,10 @@ dired-jump
 
  + counsel-esh-history = search eshell command history
 
-* TODO 
+ + 'xyz-mode-map' = keymap for some mode/functionality
+
+* TODO
+
  - [ ] find select whole line from whatever current position in said line
    
  - [ ] how to rename current buffer
@@ -129,24 +132,21 @@ dired-jump
  - [ ] terminal spawn/kill shortcut
    
  - [ ] see 'general' package for cleaner key binding definitions
-   - see System Crafters' Emacs From Scratch #3
-   - can add other prefixes like 'C-SPACE'
+     
+   + see System Crafters' Emacs From Scratch #3
+
+   + can add other prefixes like 'C-SPACE'
      
  - [ ] check 'auto-fill-mode' for txt files
    
  - [ ] need: scroll to not move cursor?
    
- - [ ] read on/experiment:
-   - multiple cursors
+ - [ ] read on/experiment with multiple cursors
      
  - [ ] investigate new types of newline
    
- - [ ] new forms of selection
-   - word
-   - whole function
+ - [ ] new forms of selection for words and whole functions
      
- - [-] check out [[orgmode.org]] (read manual)
-
  - [X] undo/redo
 
  - [ ] see end of 'Emacs From Scratch #5 - Org Mode Basics' for:

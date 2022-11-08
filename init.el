@@ -1,5 +1,6 @@
 (setq inhibit-startup-message t)
 (setq ring-bell-function 'ignore)
+(setq org-support-shift-select nil)
 
 (scroll-bar-mode -1) ; disable visible scrollbar
 (tool-bar-mode -1)   ; disable the toolbar
@@ -12,9 +13,7 @@
 
 (column-number-mode) ; enable column indexing in modeline
 
-(set-face-attribute 'default nil :height 160) ; set text size
-
-(setq org-support-shift-select nil)
+(set-face-attribute 'default nil :height 145) ; set text size
 
 ;; set backup folder
 (setq backup-directory-alist
@@ -30,6 +29,8 @@
 (dolist (mode '(org-mode-hook
 		messages-buffer-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+(setq display-line-numbers-width-start 1) ; set width equal to max(lines)
 
 ;; BINDINGS
 (global-set-key (kbd "s-r") 'split-window-right)
@@ -63,19 +64,19 @@
 
 (use-package ivy
   :diminish
-  :bind (("C-s" . swiper)
-         :map ivy-minibuffer-map
-         ("TAB" . ivy-alt-done)	
-         ("C-l" . ivy-alt-done)
-         ("C-j" . ivy-next-line)
-         ("C-k" . ivy-previous-line)
-         :map ivy-switch-buffer-map
-         ("C-k" . ivy-previous-line)
-         ("C-l" . ivy-done)
-         ("C-d" . ivy-switch-buffer-kill)
-         :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
-         ("C-d" . ivy-reverse-i-search-kill))
+  ;; :bind (("C-s" . swiper)
+  ;;        :map ivy-minibuffer-map
+  ;;        ("TAB" . ivy-alt-done)	
+  ;;        ("C-l" . ivy-alt-done)
+  ;;        ("C-j" . ivy-next-line)
+  ;;        ("C-k" . ivy-previous-line)
+  ;;        :map ivy-switch-buffer-map
+  ;;        ("C-k" . ivy-previous-line)
+  ;;        ("C-l" . ivy-done)
+  ;;        ("C-d" . ivy-switch-buffer-kill)
+  ;;        :map ivy-reverse-i-search-map
+  ;;        ("C-k" . ivy-previous-line)
+  ;;        ("C-d" . ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
 
@@ -155,7 +156,9 @@
 
 (use-package minimap)
 
+;; MULTIPLE CURSORS
 (use-package multiple-cursors)
+(setq mc/always-run-for-all t)
 
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
@@ -225,3 +228,9 @@
 ;;   :config ((define-key dired-mode-map (kbd "<left>") 'dired-single-up-directory)
 ;; 	   (define-key dired-mode-map (kbd "<right>") 'dired-single-buffer)))
 
+;; (use-package phi-search)
+
+;; (global-set-key (kbd "C-s") 'phi-search)
+;; (global-set-key (kbd "C-r") 'phi-search-backward)
+
+(use-package iedit)
