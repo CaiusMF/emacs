@@ -62,26 +62,30 @@
 
 (use-package command-log-mode)
 
+
 (use-package ivy
   :diminish
-  ;; :bind (("C-s" . swiper)
-  ;;        :map ivy-minibuffer-map
-  ;;        ("TAB" . ivy-alt-done)	
-  ;;        ("C-l" . ivy-alt-done)
-  ;;        ("C-j" . ivy-next-line)
-  ;;        ("C-k" . ivy-previous-line)
-  ;;        :map ivy-switch-buffer-map
-  ;;        ("C-k" . ivy-previous-line)
-  ;;        ("C-l" . ivy-done)
-  ;;        ("C-d" . ivy-switch-buffer-kill)
-  ;;        :map ivy-reverse-i-search-map
-  ;;        ("C-k" . ivy-previous-line)
-  ;;        ("C-d" . ivy-reverse-i-search-kill))
+  :bind (("C-s" . swiper)
+         :map ivy-minibuffer-map
+         ("TAB" . ivy-alt-done)	
+         ("C-l" . ivy-alt-done)
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
+         :map ivy-switch-buffer-map
+         ("C-k" . ivy-previous-line)
+         ("C-l" . ivy-done)
+         ("C-d" . ivy-switch-buffer-kill)
+         :map ivy-reverse-i-search-map
+         ("C-k" . ivy-previous-line)
+         ("C-d" . ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
 
+(global-set-key (kbd "M-s s") 'swiper-isearch-toggle)
+
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (setq ivy-use-virtual-buffers t) ; don't know how this works
+
 
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
@@ -234,3 +238,16 @@
 ;; (global-set-key (kbd "C-r") 'phi-search-backward)
 
 (use-package iedit)
+
+;; whitespace mode config
+(setq whitespace-display-mappings
+      '((space-mark 32 [32])
+	(newline-mark 10 [172 10])
+	(tab-mark 9 [187 9] [92 9])))
+(global-set-key (kbd "C-x w") 'whitespace-mode)
+
+(add-hook 'python-mode-hook
+  (lambda ()
+    (setq indent-tabs-mode t)
+    (setq python-indent-offset 4)
+    (setq tab-width 4)))

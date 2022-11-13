@@ -9,7 +9,7 @@ S = Shift key
 
 ** Key bindings
 
-*** Movement 
+*** Movement
 
 C-p   = prev line
 C-n   = next line
@@ -19,6 +19,8 @@ M-f   = forward word
 M-b   = backward word
 M->   = end of buffer
 M-<   = begining of buffer
+M-{   = previous paragraph (prev element ~org~)
+M-}   = next paragrapgh (next element ~org~)
 C-v   = scroll up
 M-v   = scroll down
 C-M-p = backward out of one level of parantheses
@@ -31,11 +33,12 @@ C-x left  = prev buffer
 M-,       = prev buffer
 M-.       = next buffer
 M-/       = next window
+C-x o     = next window
 C-x C-s   = save buffer
-C-x x r	  = rename-buffer
-C-x k	  = kill buffer (specify)
+C-x x r   = rename-buffer
+C-x k     = kill buffer (specify)
 s-k       = kill current buffer
-C-M-j	  = counsel switch buffer (custom map)
+C-M-j     = counsel switch buffer (custom map)
 
 *** Text manipulation
 
@@ -65,7 +68,7 @@ C-h k = describe key (prompt)
 
 *** Other
 
-C-x C-e	        = eval last expression
+C-x C-e         = eval last expression
 M-x eval-buffer = eval whole buffer
 M-x M-x         = eval region (requires counsel)
 
@@ -80,7 +83,7 @@ j       = for jumping to file
 
 dired-jump
 
-  
+
 * Cool themes
 
  + dark:
@@ -122,31 +125,31 @@ dired-jump
 * TODO
 
  - [ ] find select whole line from whatever current position in said line
-   
+
  - [ ] how to rename current buffer
-   
+
  - [ ] python color inconsistencies (doom-themes?)
-   
+
  - [ ] see in future if you need switch-buffer-other-window
-   
+
  - [ ] terminal spawn/kill shortcut
-   
+
  - [ ] see 'general' package for cleaner key binding definitions
-     
+
    + see System Crafters' Emacs From Scratch #3
 
    + can add other prefixes like 'C-SPACE'
-     
+
  - [ ] check 'auto-fill-mode' for txt files
-   
+
  - [ ] need: scroll to not move cursor?
-   
+
  - [ ] read on/experiment with multiple cursors
-     
+
  - [ ] investigate new types of newline
-   
+
  - [ ] new forms of selection for words and whole functions
-     
+
  - [X] undo/redo
 
  - [ ] see end of 'Emacs From Scratch #5 - Org Mode Basics' for:
