@@ -13,7 +13,7 @@
 
 (column-number-mode) ; enable column indexing in modeline
 
-(set-face-attribute 'default nil :height 135) ; set text size
+(set-face-attribute 'default nil :height 140) ; set text size
 
 ;; set backup folder
 (setq backup-directory-alist
@@ -158,7 +158,9 @@
 (use-package counsel-projectile
   :config (counsel-projectile-mode))
 
-(use-package minimap)
+(use-package minimap
+  :config
+  (setq minimap-window-location 'right))
 
 ;; MULTIPLE CURSORS
 (use-package multiple-cursors)
@@ -261,3 +263,13 @@
     (save-buffer)
     (toggle-truncate-lines)
     (whitespace-mode)))
+
+
+;; beacon
+(use-package beacon
+  :init (beacon-mode 1)
+  :config
+  (setq beacon-blink-duration 0.5))
+
+(use-package treemacs)
+
