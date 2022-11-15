@@ -59,6 +59,7 @@ M-s . = search symbol under cursor
 
 *** Help
 
+C-h ? = help menu
 C-h v = describe variable (prompt list)
 C-h f = describe function (prompt list)
 C-h o = describe symbol (best of both worlds) (prompt list)
@@ -169,3 +170,5 @@ dired-jump
  - [ ] C-SPC select from end-of-line to start-of-first-word not start-of-line
 
  - [ ] multiple cursors - don't ask for action permission for all cursors as default
+
+ - [ ] define function 'kill-buffer-other-window'

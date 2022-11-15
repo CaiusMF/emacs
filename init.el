@@ -13,7 +13,7 @@
 
 (column-number-mode) ; enable column indexing in modeline
 
-(set-face-attribute 'default nil :height 145) ; set text size
+(set-face-attribute 'default nil :height 135) ; set text size
 
 ;; set backup folder
 (setq backup-directory-alist
@@ -219,8 +219,6 @@
 (use-package eshell
   :hook (eshell-first-time-mode . configure-eshell))
 
-;; dired
-
 (use-package dired-single)
 
 (define-key dired-mode-map (kbd "<left>") 'dired-single-up-directory)
@@ -239,15 +237,27 @@
 
 (use-package iedit)
 
-;; whitespace mode config
+;; customize space/newline/tab whitespace
 (setq whitespace-display-mappings
-      '((space-mark 32 [32])
-	(newline-mark 10 [172 10])
-	(tab-mark 9 [187 9] [92 9])))
+      '((space-mark 32 [32] [46])     ; space (custom)
+	(space-mark 160 [164] [95])   ; non-breaking space (original)
+	(newline-mark 10 [172 10])    ; newline (custom)
+	(tab-mark 9 [187 9] [92 9]))) ; tab (custom)
+
+;; what whitespaces to show
+(setq whitespace-style
+      '(face tabs spaces trailing space-before-tab newline indentation empty space-after-tab space-mark tab-mark newline-mark missing-newline-at-eof))
+
 (global-set-key (kbd "C-x w") 'whitespace-mode)
 
+
+;; python indentation
 (add-hook 'python-mode-hook
   (lambda ()
     (setq indent-tabs-mode t)
     (setq python-indent-offset 4)
-    (setq tab-width 4)))
+    (setq tab-width 4)
+    (tabify (point-min) (point-max))
+    (save-buffer)
+    (toggle-truncate-lines)
+    (whitespace-mode)))
