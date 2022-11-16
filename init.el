@@ -271,5 +271,12 @@
   :config
   (setq beacon-blink-duration 0.5))
 
-(use-package treemacs)
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  :config
+  (setq treemacs-resize-icons 11
+	treemacs-text-scale 0.1))
 
+(global-set-key (kbd "C-s-t") 'treemacs)
