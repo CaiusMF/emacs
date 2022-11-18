@@ -23,6 +23,7 @@ M-{   = previous paragraph (prev element ~org~)
 M-}   = next paragrapgh (next element ~org~)
 C-v   = scroll up
 M-v   = scroll down
+M-m   = back to indentation
 C-M-p = backward out of one level of parantheses
 C-M-n = forward across one group of parantheses
 
@@ -50,6 +51,9 @@ C-/           = undo
 C-?           = redo
 M-w           = copy/save to kill ring
 M-y           = cycle kill ring
+M-h           = mark whole paragraph
+C-M-h         = mark whole function (~python~)
+C-x h         = mark whole buffer
 
 *** Search
 
@@ -167,7 +171,7 @@ dired-jump
 
  - [ ] search symbol (M-s .) and mark them (multiple lines)
 
- - [ ] C-SPC select from end-of-line to start-of-first-word not start-of-line
+ - [X] C-SPC select from end-of-line to start-of-first-word not start-of-line
 
  - [ ] multiple cursors - don't ask for action permission for all cursors as default
 

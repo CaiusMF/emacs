@@ -15,6 +15,8 @@
 
 (set-face-attribute 'default nil :height 140) ; set text size
 
+(delete-selection-mode 1)
+
 ;; set backup folder
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backups"))))
@@ -23,14 +25,15 @@
 (dolist (mode '(text-mode-hook
                 prog-mode-hook
                 conf-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 1))))
+  (add-hook mode (lambda ()
+		   (display-line-numbers-mode 1)
+		   (setq display-line-numbers-width-start 1))))
 
 ;; override some modes which derive from the above
 (dolist (mode '(org-mode-hook
 		messages-buffer-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-(setq display-line-numbers-width-start 1) ; set width equal to max(lines)
 
 ;; BINDINGS
 (global-set-key (kbd "s-r") 'split-window-right)
@@ -248,12 +251,15 @@
 
 ;; what whitespaces to show
 (setq whitespace-style
-      '(face tabs spaces trailing space-before-tab newline indentation empty space-after-tab space-mark tab-mark newline-mark missing-newline-at-eof))
+      '(face tabs spaces newline indentation space-mark tab-mark newline-mark missing-newline-at-eof))
+
+;; make tabs and newlines smaller
+(custom-set-faces
+ '(whitespace-newline ((t (:height 0.75))))
+ '(whitespace-tab ((t (:height 0.75)))))
 
 (global-set-key (kbd "C-x w") 'whitespace-mode)
 
-
-;; python indentation
 (add-hook 'python-mode-hook
   (lambda ()
     (setq indent-tabs-mode t)
@@ -261,22 +267,17 @@
     (setq tab-width 4)
     (tabify (point-min) (point-max))
     (save-buffer)
-    (toggle-truncate-lines)
+    (toggle-truncate-lines 1)
     (whitespace-mode)))
 
-
-;; beacon
-(use-package beacon
-  :init (beacon-mode 1)
-  :config
-  (setq beacon-blink-duration 0.5))
-
+;; treemacs
+(use-package treemacs-all-the-icons)
 (use-package treemacs
   :ensure t
   :defer t
-  :init
   :config
-  (setq treemacs-resize-icons 11
-	treemacs-text-scale 0.1))
+  (treemacs-load-theme "all-the-icons")
+  (setq treemacs-text-scale -1.5)
+  (setq treemacs-width 28))
 
 (global-set-key (kbd "C-s-t") 'treemacs)
