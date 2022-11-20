@@ -1,6 +1,12 @@
-(setq inhibit-startup-message t)
-(setq ring-bell-function 'ignore)
-(setq org-support-shift-select nil)
+(setq-default inhibit-startup-message t      ; clean *scratch* buffer
+	      ring-bell-function 'ignore     ; no bell sounds
+	      org-support-shift-select nil   ; no shift-select in org mode
+	      scroll-conservatively 101      ; avoid recentering when scrolling far
+	      scroll-margin 5                ; add margin when scrolling verticall
+	      recenter-positions '(5 bottom) ; set re-centering positions
+	      line-spacing 0.15              ; set default distance between lines
+	      use-short-answers t)           ; yes/no -> y/n (confirmation prompts)
+
 
 (scroll-bar-mode -1) ; disable visible scrollbar
 (tool-bar-mode -1)   ; disable the toolbar
@@ -141,7 +147,6 @@
 ;; display correctly:
 ;;
 ;; M-x all-the-icons-install-fonts
-
 (use-package all-the-icons)
 
 (load-theme 'doom-gruvbox t)
@@ -224,16 +229,11 @@
 (use-package eshell
   :hook (eshell-first-time-mode . configure-eshell))
 
+;; only one dired instance
 (use-package dired-single)
-
+;; navigate with left and right arrows
 (define-key dired-mode-map (kbd "<left>") 'dired-single-up-directory)
 (define-key dired-mode-map (kbd "<right>") 'dired-single-buffer)
-;; (use-package dired
-;;   :ensure nil
-;;   :commands (dired dired-jump)
-;;   :bind (("C-x C-j" . dired-jump))
-;;   :config ((define-key dired-mode-map (kbd "<left>") 'dired-single-up-directory)
-;; 	   (define-key dired-mode-map (kbd "<right>") 'dired-single-buffer)))
 
 ;; (use-package phi-search)
 
@@ -241,6 +241,12 @@
 ;; (global-set-key (kbd "C-r") 'phi-search-backward)
 
 (use-package iedit)
+
+
+;; better syntax highlighting 
+(use-package tree-sitter)
+(use-package tree-sitter-langs)
+
 
 ;; customize space/newline/tab whitespace
 (setq whitespace-display-mappings
@@ -268,7 +274,8 @@
     (tabify (point-min) (point-max))
     (save-buffer)
     (toggle-truncate-lines 1)
-    (whitespace-mode)))
+    (whitespace-mode)
+    (tree-sitter-hl-mode 1)))
 
 ;; treemacs
 (use-package treemacs-all-the-icons)

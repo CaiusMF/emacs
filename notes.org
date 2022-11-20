@@ -131,11 +131,13 @@ dired-jump
 
  - [ ] find select whole line from whatever current position in said line
 
- - [ ] how to rename current buffer
+ - [X] how to rename current buffer
 
- - [ ] python color inconsistencies (doom-themes?)
+   + C-x x r 
 
- - [ ] see in future if you need switch-buffer-other-window
+ - [-] python color inconsistencies (doom-themes?)
+
+   + tree-sitter
 
  - [ ] terminal spawn/kill shortcut
 
@@ -151,11 +153,11 @@ dired-jump
 
  - [ ] read on/experiment with multiple cursors
 
- - [ ] investigate new types of newline
-
  - [ ] new forms of selection for words and whole functions
 
  - [X] undo/redo
+
+   + C-/ / C-? 
 
  - [ ] see end of 'Emacs From Scratch #5 - Org Mode Basics' for:
 
@@ -172,6 +174,8 @@ dired-jump
  - [ ] search symbol (M-s .) and mark them (multiple lines)
 
  - [X] C-SPC select from end-of-line to start-of-first-word not start-of-line
+
+   + C-SPC + M-m 
 
  - [ ] multiple cursors - don't ask for action permission for all cursors as default
 
