@@ -129,7 +129,11 @@ dired-jump
 
 * TODO
 
- - [ ] find select whole line from whatever current position in said line
+ - [X] find select whole line from whatever current position in said line
+
+   + solved with macros (combine C-e C-SPACE C-a)
+
+ - [ ] C-TAB as switch-buffer ?
 
  - [X] how to rename current buffer
 
@@ -152,6 +156,10 @@ dired-jump
  - [ ] need: scroll to not move cursor?
 
  - [ ] read on/experiment with multiple cursors
+
+   + [ ] multiple cursors
+
+   + [ ] phi-search
 
  - [ ] new forms of selection for words and whole functions
 
@@ -180,3 +188,5 @@ dired-jump
  - [ ] multiple cursors - don't ask for action permission for all cursors as default
 
  - [ ] define function 'kill-buffer-other-window'
+
+ - [ ] check out helm

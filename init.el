@@ -7,7 +7,6 @@
 	      line-spacing 0.15              ; set default distance between lines
 	      use-short-answers t)           ; yes/no -> y/n (confirmation prompts)
 
-
 (scroll-bar-mode -1) ; disable visible scrollbar
 (tool-bar-mode -1)   ; disable the toolbar
 (tooltip-mode -1)    ; disable tooltips
@@ -50,6 +49,7 @@
 (global-set-key (kbd "M-/") 'next-window-any-frame)
 (global-set-key (kbd "C-M-j") 'counsel-switch-buffer)
 
+
 ;; initialize package sources
 (require 'package)
 
@@ -68,6 +68,7 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+
 
 (use-package command-log-mode)
 
@@ -271,11 +272,13 @@
     (setq indent-tabs-mode t)
     (setq python-indent-offset 4)
     (setq tab-width 4)
+    (setq tabify-regexp "^\t* [ \t]+") ; tabify only leading spaces
     (tabify (point-min) (point-max))
     (save-buffer)
     (toggle-truncate-lines 1)
     (whitespace-mode)
-    (tree-sitter-hl-mode 1)))
+    (tree-sitter-hl-mode 1)
+    (company-mode 1)))
 
 ;; treemacs
 (use-package treemacs-all-the-icons)
@@ -287,4 +290,24 @@
   (setq treemacs-text-scale -1.5)
   (setq treemacs-width 28))
 
-(global-set-key (kbd "C-s-t") 'treemacs)
+(global-set-key (kbd "C-s-/") 'treemacs)
+
+(use-package company)
+
+;; macros
+(fset 'select-line
+      (kmacro-lambda-form [?\C-e ?\C-  ?\C-a] 0 "%d"))
+
+(fset 'select-line-copy
+      (kmacro-lambda-form [?\C-e ?\C-  ?\C-a ?\M-w] 0 "%d"))
+
+(fset 'select-line-indent
+      (kmacro-lambda-form [?\C-e ?\C-  ?\M-m] 0 "%d"))
+
+(fset 'select-line-indent-copy
+      (kmacro-lambda-form [?\C-e ?\C-  ?\M-m ?\M-w] 0 "%d"))
+
+(global-set-key (kbd "C-c a") 'select-line)
+(global-set-key (kbd "C-c w") 'select-line-copy)
+(global-set-key (kbd "C-c C-a") 'select-line-indent)
+(global-set-key (kbd "C-c C-w") 'select-line-indent-copy)
