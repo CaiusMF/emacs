@@ -17,6 +17,8 @@ C-b   = prev character
 C-f   = next character
 M-f   = forward word
 M-b   = backward word
+C-M-f = forward balanced expression
+C-M-B = backward balanced expression
 M->   = end of buffer
 M-<   = begining of buffer
 M-{   = previous paragraph (prev element ~org~)
@@ -70,6 +72,8 @@ C-h o = describe symbol (best of both worlds) (prompt list)
       * if called with cursor on var/func/symbol, will default to it
 C-h b = describe bindings
 C-h k = describe key (prompt)
+
+ - describe-keymap
 
 *** Other
 
@@ -127,6 +131,16 @@ dired-jump
 
  + 'xyz-mode-map' = keymap for some mode/functionality
 
+ + prefixes reserved for the user
+
+   + C-c
+
+   + super key (option/windows/super for ~macos/windows-linux/linux~ keyboards)
+
+   + hyper key (fn for ~macos~ keyboards)
+
+ + interactive functions = commands 
+
 * TODO
 
  - [X] find select whole line from whatever current position in said line
@@ -139,7 +153,7 @@ dired-jump
 
    + C-x x r 
 
- - [-] python color inconsistencies (doom-themes?)
+ - [X] python color inconsistencies
 
    + tree-sitter
 
@@ -155,9 +169,9 @@ dired-jump
 
  - [ ] need: scroll to not move cursor?
 
- - [ ] read on/experiment with multiple cursors
+ - [-] read on/experiment with multiple cursors
 
-   + [ ] multiple cursors
+   + [-] multiple cursors
 
    + [ ] phi-search
 

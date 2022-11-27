@@ -1,11 +1,12 @@
-(setq-default inhibit-startup-message t      ; clean *scratch* buffer
-	      ring-bell-function 'ignore     ; no bell sounds
-	      org-support-shift-select nil   ; no shift-select in org mode
-	      scroll-conservatively 101      ; avoid recentering when scrolling far
-	      scroll-margin 5                ; add margin when scrolling verticall
-	      recenter-positions '(5 bottom) ; set re-centering positions
-	      line-spacing 0.15              ; set default distance between lines
-	      use-short-answers t)           ; yes/no -> y/n (confirmation prompts)
+(setq-default inhibit-startup-message t          ; clean *scratch* buffer
+	      ring-bell-function 'ignore         ; no bell sounds
+	      org-support-shift-select nil       ; no shift-select in org mode
+	      scroll-conservatively 101          ; avoid recentering when scrolling far
+	      scroll-margin 5                    ; add margin when scrolling verticall
+	      recenter-positions '(5 bottom)     ; set re-centering positions
+	      line-spacing 0.15                  ; set default distance between lines
+	      use-short-answers t                ; yes/no -> y/n (confirmation prompts)
+	      tab-always-indent 'complete)       ; ?
 
 (scroll-bar-mode -1) ; disable visible scrollbar
 (tool-bar-mode -1)   ; disable the toolbar
@@ -27,27 +28,16 @@
       `(("." . ,(concat user-emacs-directory "backups"))))
 
 ;; enable line numbers for some modes
-(dolist (mode '(text-mode-hook
-                prog-mode-hook
-                conf-mode-hook))
+(dolist (mode '(text-mode-hook prog-mode-hook conf-mode-hook))
   (add-hook mode (lambda ()
-		   (display-line-numbers-mode 1)
-		   (setq display-line-numbers-width-start 1))))
+		   (setq display-line-numbers-width-start t)
+		   ;; (setq display-line-numbers-width 3)
+		   (setq display-line-numbers-grow-only t) ; fix for help bug
+		   (display-line-numbers-mode 1))))
 
 ;; override some modes which derive from the above
-(dolist (mode '(org-mode-hook
-		messages-buffer-mode-hook))
+(dolist (mode '(org-mode-hook messages-buffer-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-
-;; BINDINGS
-(global-set-key (kbd "s-r") 'split-window-right)
-(global-set-key (kbd "s-k") 'kill-current-buffer)
-(global-set-key (kbd "s-'") 'next-window-any-frame)
-(global-set-key (kbd "M-,") 'previous-buffer)
-(global-set-key (kbd "M-.") 'next-buffer)
-(global-set-key (kbd "M-/") 'next-window-any-frame)
-(global-set-key (kbd "C-M-j") 'counsel-switch-buffer)
 
 
 ;; initialize package sources
@@ -236,8 +226,8 @@
 (define-key dired-mode-map (kbd "<left>") 'dired-single-up-directory)
 (define-key dired-mode-map (kbd "<right>") 'dired-single-buffer)
 
-;; (use-package phi-search)
 
+;; (use-package phi-search)
 ;; (global-set-key (kbd "C-s") 'phi-search)
 ;; (global-set-key (kbd "C-r") 'phi-search-backward)
 
@@ -254,16 +244,16 @@
       '((space-mark 32 [32] [46])     ; space (custom)
 	(space-mark 160 [164] [95])   ; non-breaking space (original)
 	(newline-mark 10 [172 10])    ; newline (custom)
-	(tab-mark 9 [187 9] [92 9]))) ; tab (custom)
+	(tab-mark 9 [124 9]))) ; tab (custom) [187 9] [92 9]
 
 ;; what whitespaces to show
 (setq whitespace-style
       '(face tabs spaces newline indentation space-mark tab-mark newline-mark missing-newline-at-eof))
 
 ;; make tabs and newlines smaller
-(custom-set-faces
- '(whitespace-newline ((t (:height 0.75))))
- '(whitespace-tab ((t (:height 0.75)))))
+;; (custom-set-faces
+;;  '(whitespace-newline ((t (:height 0.75))))
+;;  '(whitespace-tab ((t (:height 0.75))))) 
 
 (global-set-key (kbd "C-x w") 'whitespace-mode)
 
@@ -278,7 +268,8 @@
     (toggle-truncate-lines 1)
     (whitespace-mode)
     (tree-sitter-hl-mode 1)
-    (company-mode 1)))
+    (company-mode 1)
+    (superword-mode 1)))
 
 ;; treemacs
 (use-package treemacs-all-the-icons)
@@ -311,3 +302,27 @@
 (global-set-key (kbd "C-c w") 'select-line-copy)
 (global-set-key (kbd "C-c C-a") 'select-line-indent)
 (global-set-key (kbd "C-c C-w") 'select-line-indent-copy)
+
+(use-package yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+(use-package json-mode)
+(add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
+
+
+;; global-local bindings (keep this at the end of the file)
+;; use this to override any major mode defined keys
+(defvar my-keys-minor-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "M-,") 'previous-buffer)
+    (define-key map (kbd "M-.") 'next-buffer)
+    (define-key map (kbd "M-/") 'next-window-any-frame)
+    (define-key map (kbd "s-k") 'kill-current-buffer)
+    (define-key map (kbd "C-M-j") 'counsel-switch-buffer) map)
+  "my-keys-minor-mode keymap")
+
+(define-minor-mode my-keys-minor-mode
+  "A minor mode so that my key settings override any major modes."
+  :init-value t
+  :lighter "my-keys")
+
+(my-keys-minor-mode 1) ; activate it
