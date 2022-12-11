@@ -8,20 +8,20 @@
 	      use-short-answers t                ; yes/no -> y/n (confirmation prompts)
 	      tab-always-indent 'complete)       ; ?
 
-(scroll-bar-mode -1) ; disable visible scrollbar
-(tool-bar-mode -1)   ; disable the toolbar
-(tooltip-mode -1)    ; disable tooltips
-(set-fringe-mode -1) ; disable fringe
-(menu-bar-mode -1)   ; disable the menu bar
-
+(scroll-bar-mode -1)        ; disable visible scrollbar
+(tool-bar-mode -1)          ; disable the toolbar
+(tooltip-mode -1)           ; disable tooltips
+(set-fringe-mode -1)        ; disable fringe
+(menu-bar-mode -1)          ; disable the menu bar
 (auto-save-visited-mode -1) ; no autosave in file
 (auto-save-mode 1)          ; autosave enabled (in backup file)
-
-(column-number-mode) ; enable column indexing in modeline
+(column-number-mode 1)      ; enable column indexing in modeline
+(delete-selection-mode 1)   ; replace selection with typed text
+(desktop-save-mode 1)       ; save current state (?)
+(tab-bar-mode -1)           ; hide tab bar
 
 (set-face-attribute 'default nil :height 140) ; set text size
 
-(delete-selection-mode 1)
 
 ;; set backup folder
 (setq backup-directory-alist
@@ -268,8 +268,8 @@
     (toggle-truncate-lines 1)
     (whitespace-mode)
     (tree-sitter-hl-mode 1)
-    (company-mode 1)
-    (superword-mode 1)))
+    (company-mode 1)))
+    ;; (superword-mode 1)))
 
 ;; treemacs
 (use-package treemacs-all-the-icons)
@@ -284,6 +284,14 @@
 (global-set-key (kbd "C-s-/") 'treemacs)
 
 (use-package company)
+
+;; tab bar
+(setq tab-bar-new-tab-choice "*scratch*"
+      tab-bar-new-tab-to 'rightmost
+      tab-bar-close-button-show nil
+      tab-bar-new-button-show nil
+      tab-bar-button-relief 30
+      tab-bar-show nil)
 
 ;; macros
 (fset 'select-line
@@ -313,8 +321,14 @@
 ;; use this to override any major mode defined keys
 (defvar my-keys-minor-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "M-,") 'previous-buffer)
-    (define-key map (kbd "M-.") 'next-buffer)
+    (define-key map (kbd "M-[") 'previous-buffer)
+    (define-key map (kbd "M-]") 'next-buffer)
+    (define-key map (kbd "M-{") 'tab-previous)
+    (define-key map (kbd "M-}") 'tab-next)
+    (define-key map (kbd "M-<left>") 'windmove-left)
+    (define-key map (kbd "M-<right>") 'windmove-right)
+    (define-key map (kbd "M-<up>") 'windmove-up)
+    (define-key map (kbd "M-<down>") 'windmove-down)
     (define-key map (kbd "M-/") 'next-window-any-frame)
     (define-key map (kbd "s-k") 'kill-current-buffer)
     (define-key map (kbd "C-M-j") 'counsel-switch-buffer) map)
@@ -326,3 +340,8 @@
   :lighter "my-keys")
 
 (my-keys-minor-mode 1) ; activate it
+
+;; (use-package elpy
+;;   :ensure t
+;;   :init
+;;   (elpy-enable))

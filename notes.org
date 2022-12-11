@@ -204,3 +204,22 @@ dired-jump
  - [ ] define function 'kill-buffer-other-window'
 
  - [ ] check out helm
+
+ - [ ] report emacs bug (~display-line-numbers-mode~)
+
+   + steps to reproduce:
+
+     * ~setq display-line-numbers-width-start t~ for buffer in init.el
+
+     * hover "display-line-numbers-width-start" string in init.el and ~C-h o~
+       to go to its help buffer
+
+     * this increases the ~display-line-numbers-width~ for some reason
+
+     * it also makes the buffer shift and un-shift when scrolling
+
+ - [ ] need go-to-definition for functions in project
+
+ - [ ] see 'windmove' functionality (maybe remap keys)
+
+ - [ ] see emacs dashboard (landing page package)
