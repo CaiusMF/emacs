@@ -220,6 +220,6 @@ dired-jump
 
  - [ ] need go-to-definition for functions in project
 
- - [ ] see 'windmove' functionality (maybe remap keys)
+ - [X] see 'windmove' functionality (maybe remap keys)
 
  - [ ] see emacs dashboard (landing page package)

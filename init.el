@@ -20,7 +20,7 @@
 (desktop-save-mode 1)       ; save current state (?)
 (tab-bar-mode -1)           ; hide tab bar
 
-(set-face-attribute 'default nil :height 140) ; set text size
+(set-face-attribute 'default nil :height 145) ; set text size
 
 
 ;; set backup folder
@@ -170,7 +170,29 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
-(use-package org) ; for updating org
+;; (use-package org) ; for updating org
+
+;; reassign org commands in orde to use M and M-S globally
+;; S (shift) becomes s (super)
+(use-package org
+  :bind (("C-M-s-<left>" . org-decrease-number-at-point)
+	 ("C-M-s-<right>" . org-increase-number-at-point)
+	 ("C-s-<down>" . org-shiftcontroldown)
+	 ("C-s-<left>" . org-shiftcontrolleft)
+	 ("C-s-<return>" . org-insert-todo-heading-respect-content)
+	 ("C-s-<right>" . org-shiftcontrolright)
+	 ("C-s-<up>" . org-shiftcontrolup)
+	 ("C-<return>" . org-insert-heading-respect-content)
+	 ("M-s-<down>" . org-shiftmetadown)
+	 ("M-s-<left>" . org-shiftmetaleft)
+	 ("M-s-<return>" . org-insert-todo-heading)
+	 ("M-s-<right>" . org-shiftmetaright)
+	 ("M-s-<up>" . org-shiftmetaup)
+	 ("s-<down>" . org-metadown)
+	 ("s-<left>" . org-metaleft)
+	 ("s-<right>" . org-metaright)
+	 ("s-<up>" . org-metaup)))
+
 
 ;; add OS-specific customizations
 (cond
@@ -321,10 +343,10 @@
 ;; use this to override any major mode defined keys
 (defvar my-keys-minor-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "M-[") 'previous-buffer)
-    (define-key map (kbd "M-]") 'next-buffer)
-    (define-key map (kbd "M-{") 'tab-previous)
-    (define-key map (kbd "M-}") 'tab-next)
+    (define-key map (kbd "M-S-<left>") 'previous-buffer)
+    (define-key map (kbd "M-S-<right>") 'next-buffer)
+    (define-key map (kbd "M-S-<down>") 'tab-previous)
+    (define-key map (kbd "M-S-<up>") 'tab-next)
     (define-key map (kbd "M-<left>") 'windmove-left)
     (define-key map (kbd "M-<right>") 'windmove-right)
     (define-key map (kbd "M-<up>") 'windmove-up)
