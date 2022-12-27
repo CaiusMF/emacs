@@ -168,7 +168,9 @@
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c m") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+
 
 ;; (use-package org) ; for updating org
 
@@ -249,10 +251,6 @@
 (define-key dired-mode-map (kbd "<right>") 'dired-single-buffer)
 
 
-;; (use-package phi-search)
-;; (global-set-key (kbd "C-s") 'phi-search)
-;; (global-set-key (kbd "C-r") 'phi-search-backward)
-
 (use-package iedit)
 
 
@@ -291,7 +289,6 @@
     (whitespace-mode)
     (tree-sitter-hl-mode 1)
     (company-mode 1)))
-    ;; (superword-mode 1)))
 
 ;; treemacs
 (use-package treemacs-all-the-icons)
@@ -315,23 +312,36 @@
       tab-bar-button-relief 30
       tab-bar-show nil)
 
-;; macros
-(fset 'select-line
-      (kmacro-lambda-form [?\C-e ?\C-  ?\C-a] 0 "%d"))
 
-(fset 'select-line-copy
-      (kmacro-lambda-form [?\C-e ?\C-  ?\C-a ?\M-w] 0 "%d"))
+(fset 'select-line
+      (kmacro-lambda-form [?\C-a ?\C-  ?\C-e] 0 "%d"))
+
+(fset 'copy-line
+      (kmacro-lambda-form [?\C-a ?\C-  ?\C-e ?\M-w] 0 "%d"))
 
 (fset 'select-line-indent
-      (kmacro-lambda-form [?\C-e ?\C-  ?\M-m] 0 "%d"))
+      (kmacro-lambda-form [?\M-m ?\C-  ?\C-e] 0 "%d"))
 
-(fset 'select-line-indent-copy
-      (kmacro-lambda-form [?\C-e ?\C-  ?\M-m ?\M-w] 0 "%d"))
+(fset 'copy-line-indent
+      (kmacro-lambda-form [?\M-m ?\C-  ?\C-e ?\M-w] 0 "%d"))
 
-(global-set-key (kbd "C-c a") 'select-line)
-(global-set-key (kbd "C-c w") 'select-line-copy)
-(global-set-key (kbd "C-c C-a") 'select-line-indent)
-(global-set-key (kbd "C-c C-w") 'select-line-indent-copy)
+(fset 'select-word
+   (kmacro-lambda-form [C-M-left ?\C-  C-M-right] 0 "%d"))
+
+(fset 'copy-word
+   (kmacro-lambda-form [C-M-left ?\C-  C-M-right ?\M-w] 0 "%d"))
+
+(fset 'kill-buffer-other-window
+   (kmacro-lambda-form [?\C-x ?o ?\s-k ?\C-x ?o] 0 "%d"))
+
+
+(global-set-key (kbd "C-c l") 'select-line)
+(global-set-key (kbd "C-c c l") 'copy-line)
+(global-set-key (kbd "C-c C-l") 'select-line-indent)
+(global-set-key (kbd "C-c c C-l") 'copy-line-indent)
+(global-set-key (kbd "C-c w") 'select-word)
+(global-set-key (kbd "C-c c w") 'copy-word)
+(global-set-key (kbd "C-c C-k") 'kill-buffer-other-window)
 
 (use-package yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
@@ -353,7 +363,9 @@
     (define-key map (kbd "M-<down>") 'windmove-down)
     (define-key map (kbd "M-/") 'next-window-any-frame)
     (define-key map (kbd "s-k") 'kill-current-buffer)
-    (define-key map (kbd "C-M-j") 'counsel-switch-buffer) map)
+    (define-key map (kbd "C-c k") 'kill-current-buffer)
+    (define-key map (kbd "C-M-j") 'counsel-switch-buffer)
+    (define-key map (kbd "<escape>") 'keyboard-escape-quit) map)
   "my-keys-minor-mode keymap")
 
 (define-minor-mode my-keys-minor-mode

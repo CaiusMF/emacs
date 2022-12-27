@@ -147,7 +147,7 @@ dired-jump
 
    + solved with macros (combine C-e C-SPACE C-a)
 
- - [ ] C-TAB as switch-buffer ?
+ - [X] C-TAB as switch-buffer? ~no~
 
  - [X] how to rename current buffer
 
@@ -167,15 +167,15 @@ dired-jump
 
  - [ ] check 'auto-fill-mode' for txt files
 
- - [ ] need: scroll to not move cursor?
+ - [X] read on/experiment with multiple cursors
 
- - [-] read on/experiment with multiple cursors
+   + [X] multiple cursors
 
-   + [-] multiple cursors
+   + [X] phi-search
 
-   + [ ] phi-search
+ - [X] new forms of selection for words/lines
 
- - [ ] new forms of selection for words and whole functions
+   + macros for select/copy word/line 
 
  - [X] undo/redo
 
@@ -199,9 +199,9 @@ dired-jump
 
    + C-SPC + M-m 
 
- - [ ] multiple cursors - don't ask for action permission for all cursors as default
+ - [X] multiple cursors - don't ask for action permission for all cursors as default
 
- - [ ] define function 'kill-buffer-other-window'
+ - [X] define function 'kill-buffer-other-window'
 
  - [ ] check out helm
 
