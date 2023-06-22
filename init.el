@@ -303,6 +303,9 @@
 (global-set-key (kbd "C-s-/") 'treemacs)
 
 (use-package company)
+(setq company-selection-wrap-around t)
+(setq company-idle-delay 0.15)
+(setq company-require-match 'never) 
 
 ;; tab bar
 (setq tab-bar-new-tab-choice "*scratch*"
@@ -348,8 +351,13 @@
 (use-package json-mode)
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
 
+;; copy/paste for macos
+(global-set-key (kbd "M-c") 'undefined)
+(global-set-key (kbd "M-v") 'undefined)
+(global-set-key (kbd "M-c") 'kill-ring-save)
+(global-set-key (kbd "M-v") 'yank)
 
-;; global-local bindings (keep this at the end of the file)
+;; Global-local bindings (keep this at the end of the file)
 ;; use this to override any major mode defined keys
 (defvar my-keys-minor-mode-map
   (let ((map (make-sparse-keymap)))
