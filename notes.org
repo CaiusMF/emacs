@@ -191,9 +191,15 @@ dired-jump
 
  - [ ] add friends and family birthdays in org mode agenda (on repeat)
 
- - [ ] find way to jump back to where you previously were in a buffer
+ - [-] find way to jump back to where you previously were in a buffer
 
- - [ ] search symbol (M-s .) and mark them (multiple lines)
+   + ~goto-last-change~
+
+ - [X] search symbol (M-s .) and mark them (multiple lines)
+
+   + ~C-c m~ - mc/mark-all-symbols-like-this (marks all)
+
+   + ~C-'~ - hide lines without cursor
 
  - [X] C-SPC select from end-of-line to start-of-first-word not start-of-line
 

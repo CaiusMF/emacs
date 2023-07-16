@@ -81,7 +81,8 @@
   :config
   (ivy-mode 1))
 
-(global-set-key (kbd "M-s s") 'swiper-isearch-toggle)
+(global-set-key (kbd "M-s M-s") 'swiper-thing-at-point)
+(global-set-key (kbd "M-s s") 'swiper-all)
 
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (setq ivy-use-virtual-buffers t) ; don't know how this works
@@ -168,7 +169,7 @@
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c m") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c m") 'mc/mark-all-symbols-like-this)
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
 
@@ -382,6 +383,12 @@
   :lighter "my-keys")
 
 (my-keys-minor-mode 1) ; activate it
+
+(use-package goto-last-change)
+(require 'goto-last-change)
+(global-set-key (kbd "C-x /") 'goto-last-change)
+;; (require 'goto-last-change)
+
 
 ;; (use-package elpy
 ;;   :ensure t
