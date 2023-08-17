@@ -193,7 +193,7 @@ dired-jump
 
  - [-] find way to jump back to where you previously were in a buffer
 
-   + ~goto-last-change~
+   + ~goto-last-change~ ~C-x /~
 
  - [X] search symbol (M-s .) and mark them (multiple lines)
 

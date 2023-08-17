@@ -1,12 +1,12 @@
 (setq-default inhibit-startup-message t          ; clean *scratch* buffer
-	      ring-bell-function 'ignore         ; no bell sounds
-	      org-support-shift-select nil       ; no shift-select in org mode
-	      scroll-conservatively 101          ; avoid recentering when scrolling far
-	      scroll-margin 5                    ; add margin when scrolling verticall
-	      recenter-positions '(5 bottom)     ; set re-centering positions
-	      line-spacing 0.15                  ; set default distance between lines
-	      use-short-answers t                ; yes/no -> y/n (confirmation prompts)
-	      tab-always-indent 'complete)       ; ?
+              ring-bell-function 'ignore         ; no bell sounds
+              org-support-shift-select nil       ; no shift-select in org mode
+              scroll-conservatively 101          ; avoid recentering when scrolling far
+              scroll-margin 5                    ; add margin when scrolling verticall
+              recenter-positions '(5 bottom)     ; set re-centering positions
+              line-spacing 0.15                  ; set default distance between lines
+              use-short-answers t                ; yes/no -> y/n (confirmation prompts)
+              tab-always-indent 'complete)       ; ?
 
 (scroll-bar-mode -1)        ; disable visible scrollbar
 (tool-bar-mode -1)          ; disable the toolbar
@@ -22,7 +22,6 @@
 
 (set-face-attribute 'default nil :height 145) ; set text size
 
-
 ;; set backup folder
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backups"))))
@@ -30,10 +29,10 @@
 ;; enable line numbers for some modes
 (dolist (mode '(text-mode-hook prog-mode-hook conf-mode-hook))
   (add-hook mode (lambda ()
-		   (setq display-line-numbers-width-start t)
-		   ;; (setq display-line-numbers-width 3)
-		   (setq display-line-numbers-grow-only t) ; fix for help bug
-		   (display-line-numbers-mode 1))))
+           (setq display-line-numbers-width-start t)
+           ;; (setq display-line-numbers-width 3)
+           (setq display-line-numbers-grow-only t) ; fix for help bug
+           (display-line-numbers-mode 1))))
 
 ;; override some modes which derive from the above
 (dolist (mode '(org-mode-hook messages-buffer-mode-hook))
@@ -59,15 +58,15 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-
+;; event/command history for buffers
 (use-package command-log-mode)
-
 
 (use-package ivy
   :diminish
   :bind (("C-s" . swiper)
+     ("C-x b" . ivy-switch-buffer)
          :map ivy-minibuffer-map
-         ("TAB" . ivy-alt-done)	
+         ("TAB" . ivy-alt-done) 
          ("C-l" . ivy-alt-done)
          ("C-j" . ivy-next-line)
          ("C-k" . ivy-previous-line)
@@ -87,13 +86,12 @@
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (setq ivy-use-virtual-buffers t) ; don't know how this works
 
-
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
-	 ("C-x b" . counsel-ibuffer)
-	 ("C-x C-f" . counsel-find-file)
-	 :map minibuffer-local-map
-	 ("C-r" . counsel-minibuffer-history))
+     ;; ("C-x b" . counsel-ibuffer)
+     ("C-x C-f" . counsel-find-file)
+     :map minibuffer-local-map
+     ("C-r" . counsel-minibuffer-history))
   :config
   (setq ivy-initial-inputs-alist nil)) ;; don't start searches with ^
 
@@ -113,16 +111,6 @@
   :config
   (setq which-key-idle-delay 0.3))
 
-(use-package ivy-rich
-  :init
-  (ivy-rich-mode 1))
-
-(use-package counsel
-  :bind (("M-x" . counsel-M-x)
-	 ("C-x b" . counsel-ibuffer)
-	 ("C-x C-f" . counsel-find-file)
-	 :map minibuffer-local-map
-	 ("C-r" . counsel-minibuffer-history)))
 
 (use-package helpful
   :custom
@@ -139,6 +127,7 @@
 ;; display correctly:
 ;;
 ;; M-x all-the-icons-install-fonts
+;; M-x nerd-icons-install-fonts (optional)
 (use-package all-the-icons)
 
 (load-theme 'doom-gruvbox t)
@@ -148,7 +137,7 @@
   :config (projectile-mode)
   :custom ((projectile-completion-system 'ivy))
   :bind-keymap
-  ("C-c p" . projectile-command-map)
+  ("C-x p" . projectile-command-map)
   :init
   ;; NOTE: Set this to the folder where you keep your Git repos!
   (when (file-directory-p "~/Work")
@@ -158,43 +147,50 @@
 (use-package counsel-projectile
   :config (counsel-projectile-mode))
 
+;; icons in minibuffer
+(use-package all-the-icons-ivy-rich
+  :ensure t
+  :init
+  (all-the-icons-ivy-rich-mode 1))
+
+(use-package ivy-rich
+  :after ivy
+  :init
+  (ivy-rich-mode 1))
+
 (use-package minimap
   :config
   (setq minimap-window-location 'right))
 
-;; MULTIPLE CURSORS
+;; multiple cursors
 (use-package multiple-cursors)
 (setq mc/always-run-for-all t)
-
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c m") 'mc/mark-all-symbols-like-this)
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
-
-;; (use-package org) ; for updating org
-
-;; reassign org commands in orde to use M and M-S globally
+;; reassign org commands in order to use M and M-S globally
 ;; S (shift) becomes s (super)
 (use-package org
   :bind (("C-M-s-<left>" . org-decrease-number-at-point)
-	 ("C-M-s-<right>" . org-increase-number-at-point)
-	 ("C-s-<down>" . org-shiftcontroldown)
-	 ("C-s-<left>" . org-shiftcontrolleft)
-	 ("C-s-<return>" . org-insert-todo-heading-respect-content)
-	 ("C-s-<right>" . org-shiftcontrolright)
-	 ("C-s-<up>" . org-shiftcontrolup)
-	 ("C-<return>" . org-insert-heading-respect-content)
-	 ("M-s-<down>" . org-shiftmetadown)
-	 ("M-s-<left>" . org-shiftmetaleft)
-	 ("M-s-<return>" . org-insert-todo-heading)
-	 ("M-s-<right>" . org-shiftmetaright)
-	 ("M-s-<up>" . org-shiftmetaup)
-	 ("s-<down>" . org-metadown)
-	 ("s-<left>" . org-metaleft)
-	 ("s-<right>" . org-metaright)
-	 ("s-<up>" . org-metaup)))
+     ("C-M-s-<right>" . org-increase-number-at-point)
+     ("C-s-<down>" . org-shiftcontroldown)
+     ("C-s-<left>" . org-shiftcontrolleft)
+     ("C-s-<return>" . org-insert-todo-heading-respect-content)
+     ("C-s-<right>" . org-shiftcontrolright)
+     ("C-s-<up>" . org-shiftcontrolup)
+     ("C-<return>" . org-insert-heading-respect-content)
+     ("M-s-<down>" . org-shiftmetadown)
+     ("M-s-<left>" . org-shiftmetaleft)
+     ("M-s-<return>" . org-insert-todo-heading)
+     ("M-s-<right>" . org-shiftmetaright)
+     ("M-s-<up>" . org-shiftmetaup)
+     ("s-<down>" . org-metadown)
+     ("s-<left>" . org-metaleft)
+     ("s-<right>" . org-metaright)
+     ("s-<up>" . org-metaup)))
 
 
 ;; add OS-specific customizations
@@ -215,8 +211,6 @@
  ; windows
  ((string= "windows-nt" system-type)
   (progn ())))
-
-;; (use-package pdf-tools) ; doesn't work (make it work using its github)
 
 (defun org-mode-visual-fill ()
   (setq visual-fill-column-width 100
@@ -251,21 +245,19 @@
 (define-key dired-mode-map (kbd "<left>") 'dired-single-up-directory)
 (define-key dired-mode-map (kbd "<right>") 'dired-single-buffer)
 
-
+;; highlight and modify symbol
 (use-package iedit)
-
 
 ;; better syntax highlighting 
 (use-package tree-sitter)
 (use-package tree-sitter-langs)
 
-
 ;; customize space/newline/tab whitespace
 (setq whitespace-display-mappings
       '((space-mark 32 [32] [46])     ; space (custom)
-	(space-mark 160 [164] [95])   ; non-breaking space (original)
-	(newline-mark 10 [172 10])    ; newline (custom)
-	(tab-mark 9 [124 9]))) ; tab (custom) [187 9] [92 9]
+        (space-mark 160 [164] [95])   ; non-breaking space (original)
+        (newline-mark 10 [172 10])    ; newline (custom)
+        (tab-mark 9 [124 9]))) ; tab (custom) [187 9] [92 9]
 
 ;; what whitespaces to show
 (setq whitespace-style
@@ -278,14 +270,43 @@
 
 (global-set-key (kbd "C-x w") 'whitespace-mode)
 
+;; lsp
+(use-package eglot)
+
+;; indentation guides
+(use-package highlight-indent-guides
+  :ensure t
+  :hook ((python-mode . highlight-indent-guides-mode))
+  :custom
+  (highlight-indent-guides-method 'bitmap)
+  (highlight-indent-guides-responsive 'nil)
+  (highlight-indent-guides-bitmap-function 'highlight-indent-guides--bitmap-dots)
+)
+
+;; tab indent version (old)
+;; (add-hook 'python-mode-hook
+;;   (lambda ()
+;;     (setq indent-tabs-mode t)
+;;     (setq python-indent-offset 4)
+;;     (setq tab-width 4)
+;;     (setq tabify-regexp "^\t* [ \t]+") ; tabify only leading spaces
+;;     (setq forward-sexp-function nil) ; fix forward-sexp for python
+;;     (tabify (point-min) (point-max))
+;;     (save-buffer)
+;;     (toggle-truncate-lines 1)
+;;     (whitespace-mode)
+;;     (tree-sitter-hl-mode 1)
+;;     (company-mode 1)))
+
+
+;; space indent version`(new)
 (add-hook 'python-mode-hook
   (lambda ()
-    (setq indent-tabs-mode t)
+    (setq indent-tabs-mode nil)
     (setq python-indent-offset 4)
     (setq tab-width 4)
-    (setq tabify-regexp "^\t* [ \t]+") ; tabify only leading spaces
-    (tabify (point-min) (point-max))
-    (save-buffer)
+    (setq forward-sexp-function nil) ; fix forward-sexp for python
+    (untabify (point-min) (point-max))
     (toggle-truncate-lines 1)
     (whitespace-mode)
     (tree-sitter-hl-mode 1)
@@ -303,10 +324,15 @@
 
 (global-set-key (kbd "C-s-/") 'treemacs)
 
+;; invalid svg fix for treemacs
+(setq image-types (cons 'svg image-types))
+
+;; code completion
 (use-package company)
 (setq company-selection-wrap-around t)
 (setq company-idle-delay 0.15)
-(setq company-require-match 'never) 
+(setq company-require-match 'never)
+(setq company-minimum-prefix-length 1) ;; 3
 
 ;; tab bar
 (setq tab-bar-new-tab-choice "*scratch*"
@@ -387,10 +413,4 @@
 (use-package goto-last-change)
 (require 'goto-last-change)
 (global-set-key (kbd "C-x /") 'goto-last-change)
-;; (require 'goto-last-change)
 
-
-;; (use-package elpy
-;;   :ensure t
-;;   :init
-;;   (elpy-enable))
