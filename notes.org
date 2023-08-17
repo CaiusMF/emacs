@@ -231,3 +231,5 @@ dired-jump
  - [ ] see emacs dashboard (landing page package)
 
  - [ ] command to check and list unsaved files
+
+ - [X] add ~/.config/pycodestyle to git (for eglot)
